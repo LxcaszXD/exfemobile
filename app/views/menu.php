@@ -56,10 +56,10 @@ require_once('template/head.php');
 
         <div class="filtro">
             <div class="filtros">
-                <button data-filtro="All" class="ativo">All Coffee</button>
-                <button data-filtro="Machiatto">Machiatto</button>
-                <button data-filtro="Latte">Latte</button>
-                <button data-filtro="Americano">Americano</button>
+                <button data-filtro="All" class="ativo">All Coffees</button>
+                <button data-filtro="Machiatto">All Side Dishes</button>
+                <button data-filtro="Latte">All Teas</button>
+                <button data-filtro="Americano">All Breads</button>
             </div>
         </div>
 
