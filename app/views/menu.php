@@ -56,62 +56,34 @@ require_once('template/head.php');
 
         <div class="filtro">
             <div class="filtros">
-                <button data-filtro="All" class="ativo">All Coffees</button>
-                <button data-filtro="Machiatto">All Side Dishes</button>
-                <button data-filtro="Latte">All Teas</button>
-                <button data-filtro="Americano">All Breads</button>
+                <button data-filtro="Todos" class="ativo">Todos</button>
+                <button data-filtro="Cafés Tradicionais">Cafés</button>
+                <button data-filtro="Chás">Chás</button>
+                <button data-filtro="Sobremesas">Sobremesas</button>
+                <button data-filtro="Pães">Pães</button>
             </div>
         </div>
 
         <div class="lista">
-            <div class="card" data-tipo="Machiatto">
-                <img src="<?php echo BASE_URL; ?>assets/img/mocha.png" alt="Caffe Mocha">
-                <h3>Caffe Mocha</h3>
-                <p>Machiatto</p>
-                <div class="card-footer">
-                    <strong>$4.53</strong>
-                    <button class="btn-info">
-                        <a href="<?php echo BASE_URL; ?>index.php?url=detalhe">+</a>
-                    </button>
-                </div>
-            </div>
-
-            <div class="card" data-tipo="Latte">
-                <img src="<?php echo BASE_URL; ?>assets/img/flat.png" alt="Flat White">
-                <h3>Flat White</h3>
-                <p>Latte</p>
-                <div class="card-footer">
-                    <strong>$3.53</strong>
-                    <button class="btn-info">
-                        <a href="<?php echo BASE_URL; ?>index.php?url=detalhe">+</a>
-                    </button>
-                </div>
-            </div>
-
-            <div class="card" data-tipo="Americano">
-                <img src="<?php echo BASE_URL; ?>assets/img/americano.png" alt="Americano">
-                <h3>Americano</h3>
-                <p>Americano</p>
-                <div class="card-footer">
-                    <strong>$2.50</strong>
-                    <button class="btn-info">
-                        <a href="<?php echo BASE_URL; ?>index.php?url=detalhe">+</a>
-                    </button>
-                </div>
-            </div>
-
-            <div class="card" data-tipo="Latte">
-                <img src="<?php echo BASE_URL; ?>assets/img/latte.png" alt="Latte">
-                <h3>Latte</h3>
-                <p>Latte</p>
-                <div class="card-footer">
-                    <strong>$3.00</strong>
-                    <button class="btn-info">
-                        <a href="<?php echo BASE_URL; ?>index.php?url=detalhe">+</a>
-                    </button>
-                </div>
-            </div>
+            <?php if (!empty($produtos)):
+                foreach ($produtos as $produto): ?>
+                    <div class="card" data-tipo="<?php echo htmlspecialchars($produto['nome_categoria']); ?>">
+                        <img src="<?php echo BASE_URL_FOTO . 'assets/img/' . htmlspecialchars($produto['foto_produto']); ?>" alt="<?php echo htmlspecialchars($produto['nome_produto']); ?>">
+                        <h3><?php echo htmlspecialchars($produto['nome_produto']); ?></h3>
+                        <p><?php echo htmlspecialchars($produto['nome_categoria']); ?></p>
+                        <div class="card-footer">
+                            <strong>R$ <?php echo number_format($produto['preco_produto'], 2, ',', '.'); ?></strong>
+                            <button class="btn-info">
+                                <a href="<?php echo BASE_URL . 'index.php?url=detalhe&id=' . $produto['id_produto']; ?>">+</a>
+                            </button>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <p>Nenhum produto encontrado para esta categoria.</p>
+            <?php endif; ?>
         </div>
+
 
         <nav class="footer-section">
             <a href="" class="active"><i class='bx bxs-home-alt-2 '></i></a>
@@ -125,7 +97,7 @@ require_once('template/head.php');
     <script src="script/script.js"></script>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
+    <!-- <script>
         $(document).ready(function() {
             $('.filtros button').click(function() {
                 const filtro = $(this).attr('data-filtro');
@@ -141,7 +113,37 @@ require_once('template/head.php');
                 }
             });
         });
+    </script> -->
+
+    <script>
+        // Aguarda o carregamento completo do DOM
+        document.addEventListener('DOMContentLoaded', function() {
+            const botoesFiltro = document.querySelectorAll('.filtros button');
+            const cards = document.querySelectorAll('.lista .card');
+
+            botoesFiltro.forEach(botao => {
+                botao.addEventListener('click', function() {
+                    const categoriaSelecionada = this.getAttribute('data-filtro');
+
+                    // Remove classe "ativo" de todos os botões
+                    botoesFiltro.forEach(b => b.classList.remove('ativo'));
+                    // Adiciona classe "ativo" no botão clicado
+                    this.classList.add('ativo');
+
+                    cards.forEach(card => {
+                        const tipoCard = card.getAttribute('data-tipo');
+
+                        if (categoriaSelecionada === 'Todos' || tipoCard === categoriaSelecionada) {
+                            card.style.display = 'flex'; // ou 'block' conforme seu layout
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        });
     </script>
+
 
 </body>
 
