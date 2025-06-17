@@ -19,19 +19,15 @@ class DetalheController extends Controller
         }
 
         // Buscar o cliente na API
-        $url = BASE_API . "cliente/" . $dadosToken['id'];
-
-        // Inicializa uma sessão cURL
-        $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+        $urlCliente = BASE_API . "cliente/" . $dadosToken['id'];
+        $chCliente = curl_init($urlCliente);
+        curl_setopt($chCliente, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($chCliente, CURLOPT_HTTPHEADER, [
             'Authorization: Bearer ' . $_SESSION['token']
         ]);
-
-        // Recebe os dados dessa solicitação
-        $response = curl_exec($ch);
-        $statusCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        curl_close($ch);
+        $response = curl_exec($chCliente);
+        $statusCode = curl_getinfo($chCliente, CURLINFO_HTTP_CODE);
+        curl_close($chCliente);
 
         if ($statusCode != 200) {
             echo "Erro ao buscar o cliente na API.\n";
@@ -39,14 +35,34 @@ class DetalheController extends Controller
             exit;
         }
 
-        // Decodifica os dados
         $cliente = json_decode($response, true);
 
+        // Buscar produto por ID
+        $id = isset($_GET['id']) ? $_GET['id'] : null;
+        $produto = null;
+
+        if ($id) {
+            $urlProduto = BASE_API . "detalhesProduto/$id";
+            $chProduto = curl_init($urlProduto);
+            curl_setopt($chProduto, CURLOPT_RETURNTRANSFER, true);
+            $resposta = curl_exec($chProduto);
+            curl_close($chProduto);
+
+            $resposta = json_decode($resposta, true);
+
+            if ($resposta && $resposta['status'] === 'sucesso') {
+                $produto = $resposta['produto'];
+            }
+        }
+
+        // Montar os dados para a view
         $dados = array();
         $dados['titulo'] = 'Exfe - Detalhes';
         $dados['nome_cliente'] = $cliente['nome_cliente'] ?? 'Cliente';
-        $dados['cliente'] = $cliente;  // Passa todos os dados do cliente
+        $dados['cliente'] = $cliente;
+        $dados['produto'] = $produto; // <- Adicionado aqui
 
+        // Carregar a view com os dados do produto
         $this->carregarViews('detalhes', $dados);
     }
 }
