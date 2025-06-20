@@ -39,10 +39,7 @@ require_once('template/head.php');
                     </div>
                 </div>
 
-                <div class="rating">
-                    <span class="rating-number">4.8</span>
-                    <span class="reviews">(230)</span>
-                </div>
+
 
                 <h4>Descrição</h4>
                 <p class="description"><?php echo htmlspecialchars($produto['descricao_produto']); ?></p>

@@ -50,61 +50,35 @@ require_once('template/head.php');
         </div>
 
         <div class="lista">
-            <div class="card" data-tipo="Machiatto">
-                <img src="<?php echo BASE_URL; ?>assets/img/mocha.png" alt="Caffe Mocha">
-                <h3>Caffe Mocha</h3>
-                <p>Machiatto</p>
-                <div class="card-footer">
-                    <strong>$4.53</strong>
-                    <button class="btn-info">
-                        <a href="<?php echo BASE_URL; ?>index.php?url=reserva">+</a>
-                    </button>
-                </div>
-            </div>
-
-            <div class="card" data-tipo="Latte">
-                <img src="<?php echo BASE_URL; ?>assets/img/flat.png" alt="Flat White">
-                <h3>Flat White</h3>
-                <p>Latte</p>
-                <div class="card-footer">
-                    <strong>$3.53</strong>
-                    <button class="btn-info">
-                        <a href="<?php echo BASE_URL; ?>index.php?url=reserva">+</a>
-                    </button>
-                </div>
-            </div>
-
-            <div class="card" data-tipo="Americano">
-                <img src="<?php echo BASE_URL; ?>assets/img/americano.png" alt="Americano">
-                <h3>Americano</h3>
-                <p>Americano</p>
-                <div class="card-footer">
-                    <strong>$2.50</strong>
-                    <button class="btn-info">
-                        <a href="<?php echo BASE_URL; ?>index.php?url=reserva">+</a>
-                    </button>
-                </div>
-            </div>
-
-            <div class="card" data-tipo="Latte">
-                <img src="<?php echo BASE_URL; ?>assets/img/latte.png" alt="Latte">
-                <h3>Latte</h3>
-                <p>Latte</p>
-                <div class="card-footer">
-                    <strong>$3.00</strong>
-                    <button class="btn-info">
-                        <a href="<?php echo BASE_URL; ?>index.php?url=reserva">+</a>
-                    </button>
-                </div>
-            </div>
+            <?php if (!empty($pedidos)) : ?>
+                <?php foreach ($pedidos as $pedido) : ?>
+                    <?php foreach ($pedido['itens'] as $item) : ?>
+                        <div class="card">
+                            <!-- Exibe um ícone ou imagem padrão -->
+                            <img src="<?= BASE_URL ?>assets/img/cafe-default.png" alt="<?= htmlspecialchars($item['nome_produto']) ?>">
+                            <h3><?= htmlspecialchars($item['nome_produto']) ?></h3>
+                            <p>ID do Produto: <?= (int)$item['id_produto'] ?></p>
+                            <div class="card-footer">
+                                <strong>Produto incluído</strong>
+                                <button class="btn-info">
+                                    <a href="<?= BASE_URL; ?>index.php?url=reserva">+</a>
+                                </button>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                <?php endforeach; ?>
+            <?php else : ?>
+                <p>Nenhum pedido encontrado.</p>
+            <?php endif; ?>
         </div>
 
         <nav class="footer-section">
-            <a href="" class="active"><i class='bx bxs-home-alt-2 '></i></a>
+            <a href="" class="active"><i class='bx bxs-home-alt-2'></i></a>
             <a href=""><i class='bx bx-heart'></i></a>
-            <a href="<?php echo BASE_URL; ?>index.php?url=pedidos"><i class='bx bx-shopping-bag'></i></a>
+            <a href="<?= BASE_URL; ?>index.php?url=pedidos"><i class='bx bx-shopping-bag'></i></a>
             <a href=""><i class='bx bx-bell'></i></a>
         </nav>
+
 
     </section>
 

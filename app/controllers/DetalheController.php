@@ -42,11 +42,12 @@ class DetalheController extends Controller
         $produto = null;
 
         if ($id) {
-            $urlProduto = BASE_API . "detalhesProduto/$id";
-            $chProduto = curl_init($urlProduto);
-            curl_setopt($chProduto, CURLOPT_RETURNTRANSFER, true);
-            $resposta = curl_exec($chProduto);
-            curl_close($chProduto);
+            $url = BASE_API . "detalhes/$id";
+            $ch = curl_init($url);
+
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            $resposta = curl_exec($ch);
+            curl_close($ch);
 
             $resposta = json_decode($resposta, true);
 
