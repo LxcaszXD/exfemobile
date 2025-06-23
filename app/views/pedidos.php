@@ -57,7 +57,6 @@ require_once('template/head.php');
                             <!-- Exibe um ícone ou imagem padrão -->
                             <img src="<?= BASE_URL ?>assets/img/cafe-default.png" alt="<?= htmlspecialchars($item['nome_produto']) ?>">
                             <h3><?= htmlspecialchars($item['nome_produto']) ?></h3>
-                            <p>ID do Produto: <?= (int)$item['id_produto'] ?></p>
                             <div class="card-footer">
                                 <strong>Produto incluído</strong>
                                 <button class="btn-info">
