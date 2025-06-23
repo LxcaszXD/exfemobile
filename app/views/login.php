@@ -113,6 +113,20 @@ require_once('template/head.php');
         integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
         crossorigin="anonymous"></script>
 
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('service_worker.js')
+                    .then(function(registration) {
+                        console.log('Service Worker registrado', registration.scope);
+                    })
+                    .catch(function(error) {
+                        console.log('Erro ao registrar o Service Worker:', error);
+                    });
+            });
+        }
+    </script>
+
 
     <script src="<?php echo BASE_URL; ?>assets/script/script.js"></script>
 </body>

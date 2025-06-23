@@ -51,12 +51,12 @@ require_once('template/head.php');
 
                     <div class="mb-3">
                         <label class="form-label label-custom">Intensidade:</label>
-                        <input type="text" class="form-control input-custom" id="id_intensidade" name="id_intensidade" value="<?= !empty($cliente['id_intensidade']) ? $cliente['id_intensidade'] : 'Vazio' ?>" readonly>
+                        <input type="text" class="form-control input-custom" id="id_intensidade" name="id_intensidade" value="<?= !empty($cliente['nome_intensidade']) ? $cliente['nome_intensidade'] : 'Vazio' ?>" readonly>
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label label-custom">Acompanhamento:</label>
-                        <input type="text" class="form-control input-custom" id="id_acompanhamento" name="id_acompanhamento" value="<?= !empty($cliente['id_acompanhamento']) ? $cliente['id_acompanhamento'] : 'Vazio' ?>" readonly>
+                        <input type="text" class="form-control input-custom" id="id_acompanhamento" name="id_acompanhamento" value="<?= !empty($cliente['nome_acompanhamento']) ? $cliente['nome_acompanhamento'] : 'Vazio' ?>" readonly>
                     </div>
 
                     <div class="mb-3">
@@ -66,7 +66,7 @@ require_once('template/head.php');
 
                     <div class="mb-3">
                         <label class="form-label label-custom">Tipo de Leite:</label>
-                        <input type="text" class="form-control input-custom" id="id_tipo_leite" name="id_tipo_leite" value="<?= !empty($cliente['id_tipo_leite']) ? $cliente['id_tipo_leite'] : 'Vazio' ?>" readonly>
+                        <input type="text" class="form-control input-custom" id="id_tipo_leite" name="id_tipo_leite" value="<?= !empty($cliente['nome_tipo_leite']) ? $cliente['nome_tipo_leite'] : 'Vazio' ?>" readonly>
                     </div>
 
                     <div class="mb-3">
@@ -84,9 +84,10 @@ require_once('template/head.php');
                 <div class="price">
                     <p>Deseja Editar?</p>
                 </div>
-                <a href="<?php echo BASE_URL; ?>index.php?url=editarPerfil">
+                <a href="<?php echo BASE_URL; ?>index.php?url=perfil/formEditarPerfil">
                     <button class="reserve">Editar</button>
                 </a>
+
             </div>
         </nav>
     </section>

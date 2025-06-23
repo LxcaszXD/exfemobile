@@ -1317,4 +1317,144 @@ html body #editarPerfil .footerSection .footer .reserve {
 }
 html body #editarPerfil .footerSection .footer .reserve:hover {
   background-color: #6a4234;
+}
+html body #avaliacao {
+  width: 100%;
+  height: auto;
+  background: linear-gradient(to top, #eecdc5, #fff);
+}
+html body #avaliacao .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+}
+html body #avaliacao .header .back,
+html body #avaliacao .header .favorite {
+  width: 10px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+html body #avaliacao .header .back img,
+html body #avaliacao .header .favorite img {
+  width: 20px;
+}
+html body #avaliacao .header h2 {
+  font-weight: 600;
+  font-size: 28px;
+}
+html body #avaliacao .image-container {
+  width: 100%;
+  margin-right: 0;
+  border-radius: 20px;
+}
+html body #avaliacao .image-container img {
+  margin-left: 25px;
+  max-width: 90%;
+}
+html body #avaliacao .content {
+  padding: 16px;
+}
+html body #avaliacao .content .title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+html body #avaliacao .content .title-row h3 {
+  font-size: 22px;
+}
+html body #avaliacao .content .icons {
+  display: flex;
+  gap: 10px;
+}
+html body #avaliacao .content .icons .icon {
+  background-color: rgba(219, 176, 159, 0.3215686275);
+  padding: 8px;
+  border-radius: 10px;
+  font-size: 18px;
+}
+html body #avaliacao .content .rating {
+  margin: 8px 0;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: #555;
+}
+html body #avaliacao .content h4 {
+  margin-top: 16px;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+html body #avaliacao .content .description {
+  color: #888;
+  font-size: 14px;
+  line-height: 1.5;
+}
+html body #avaliacao .content .sizes {
+  display: flex;
+  gap: 16px;
+}
+html body #avaliacao .content .sizes .size {
+  padding: 10px 18px;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  background-color: #fff;
+  cursor: pointer;
+  font-weight: 500;
+}
+html body #avaliacao .content .sizes .size.active {
+  border-color: #d37e6d;
+  background-color: #fdf1ef;
+}
+html body #avaliacao .content .avaliacao {
+  margin-bottom: 16px;
+  background-color: #fff7f5;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 14px;
+  color: #333;
+}
+html body #avaliacao .content .avaliacao p {
+  margin: 4px 0;
+}
+html body #avaliacao .content .avaliacao hr {
+  margin-top: 10px;
+  border: 0;
+  border-top: 1px solid #eee;
+}
+html body #avaliacao .footerSection {
+  width: 100%;
+  height: 77px;
+  background: #ffffff;
+  padding-top: 5%;
+  border-radius: 25px 25px 0px 0px;
+}
+html body #avaliacao .footerSection .footer {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+html body #avaliacao .footerSection .footer .price .label {
+  font-size: 14px;
+  color: #888;
+}
+html body #avaliacao .footerSection .footer .price .amount {
+  font-size: 20px;
+  font-weight: bold;
+  color: #7b4f3c;
+}
+html body #avaliacao .footerSection .footer .reserve {
+  background-color: #7b4f3c;
+  color: white;
+  padding: 10px 24px;
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
+  font-weight: 600;
+}
+html body #avaliacao .footerSection .footer .reserve:hover {
+  background-color: #6a4234;
 }/*# sourceMappingURL=style.css.map */
