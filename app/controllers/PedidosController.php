@@ -90,6 +90,11 @@ class PedidosController extends Controller
             exit;
         }
 
+        $pedidos = $respostaPedidos['pedidos']; // <<< ESSA LINHA FALTAVA
+
+       require_once __DIR__ . '/../views/pedidos.php';
+
+
 
         // ---------- CRIA A RESERVA A PARTIR DE $_POST OU $_GET ----------
 
