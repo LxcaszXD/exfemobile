@@ -97,6 +97,10 @@ require_once('template/head.php');
                             <input type="password" name="senha" id="senha" class="form-control" required>
                         </div>
 
+                        <div class="forgot-password">
+                            <p><a href="<?php echo BASE_URL; ?>index.php?url=recuperarsenha">Esqueci a Senha</a></p>
+                        </div>
+
                         <!-- Rodapé do modal com os botões -->
                         <div class="d-flex justify-content-evenly mt-4">
                             <button type="button" class="btn btn-danger w-45" data-bs-dismiss="modal">Fechar</button>

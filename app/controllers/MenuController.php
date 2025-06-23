@@ -27,7 +27,7 @@ class MenuController extends Controller
         }
 
         // 2. Busca dados do cliente
-        $urlCliente = BASE_API . "listarClientes?id=" . $id;
+        $urlCliente = BASE_API . "listarClientesPerfil?id=" . $id;
 
         $chCliente = curl_init($urlCliente);
         curl_setopt($chCliente, CURLOPT_RETURNTRANSFER, true);

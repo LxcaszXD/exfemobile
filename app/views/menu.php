@@ -84,12 +84,11 @@ require_once('template/head.php');
             <?php endif; ?>
         </div>
 
-
         <nav class="footer-section">
             <a href="" class="active"><i class='bx bxs-home-alt-2 '></i></a>
-            <a href="<?php echo BASE_URL; ?>index.php?url=avaliacao"><i class='bx bx-heart'></i></a>
+            <a href="<?php echo BASE_URL; ?>index.php?url=avaliacao"><i class='bx bx-star'></i></a>
             <a href="<?php echo BASE_URL; ?>index.php?url=pedidos"><i class='bx bx-shopping-bag'></i></a>
-            <a href=""><i class='bx bx-bell'></i></a>
+            <a href="<?php echo BASE_URL; ?>index.php?url=reserva"><i class='bx bx-book'></i></a>
         </nav>
 
     </section>
