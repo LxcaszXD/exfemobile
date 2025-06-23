@@ -18,7 +18,7 @@ class MenuController extends Controller
             exit;
         }
 
-        // 1. Pega ID do cliente
+        // Pega ID do cliente
         $id = $dadosToken['id'] ?? null;
 
         if (!$id) {
@@ -26,7 +26,7 @@ class MenuController extends Controller
             exit;
         }
 
-        // 2. Busca dados do cliente
+        // Busca dados do cliente
         $urlCliente = BASE_API . "listarClientesPerfil?id=" . $id;
 
         $chCliente = curl_init($urlCliente);
@@ -50,9 +50,7 @@ class MenuController extends Controller
             exit;
         }
 
-
-
-
+        // Busca todos os produtos por categoria (agrupados)
         $url = BASE_API . "listarProdutosPorCategoria";
 
         $ch = curl_init($url);
@@ -76,42 +74,24 @@ class MenuController extends Controller
             exit;
         }
 
-
-
-
-
-
-        // Monta a URL da API de categorias
+        // Busca categorias
         $urlCategorias = BASE_API . "listarCategorias/";
 
-        // Inicializa a sessão cURL
         $chCategorias = curl_init($urlCategorias);
-
-        // Define que a resposta será retornada como string
         curl_setopt($chCategorias, CURLOPT_RETURNTRANSFER, true);
-
-        // Define os headers, incluindo o token de autenticação
         curl_setopt($chCategorias, CURLOPT_HTTPHEADER, [
             'Authorization: Bearer ' . $_SESSION['token']
         ]);
-
-        // Executa a requisição
         $responseCategorias = curl_exec($chCategorias);
-
-        // Obtém o código HTTP da resposta
         $statusCodeCategorias = curl_getinfo($chCategorias, CURLINFO_HTTP_CODE);
-
-        // Encerra a sessão cURL
         curl_close($chCategorias);
 
-        // Verifica se a requisição foi bem-sucedida
         if ($statusCodeCategorias != 200) {
             echo "Erro ao buscar as categorias na API.\n";
             echo "Código HTTP: $statusCodeCategorias";
             exit;
         }
 
-        // Decodifica o JSON da resposta em array associativo
         $categoria = json_decode($responseCategorias, true);
 
         if (!isset($categoria['categoria']) || empty($categoria['categoria'])) {
@@ -119,15 +99,14 @@ class MenuController extends Controller
             exit;
         }
 
-        // Seleciona a primeira categoria (ou outra lógica, como GET['categoria'])
         $categoriaSelecionada = $categoria['categoria'][0]['id_categoria'] ?? null;
-
 
         if (!$categoriaSelecionada) {
             echo "Nenhuma categoria foi selecionada.";
             exit;
         }
 
+        // Busca produtos selecionados
         $urlProdutos = BASE_API . "listarProdutosSelecionados/";
 
         $chProdutos = curl_init($urlProdutos);
@@ -151,12 +130,13 @@ class MenuController extends Controller
             exit;
         }
 
-        // 5. Prepara os dados para a view
+        // Prepara os dados para a view
         $dados = array();
         $dados['titulo'] = 'Exfe - Menu';
         $dados['nome_cliente'] = $respostaCliente['cliente']['nome_cliente'] ?? 'Cliente';
         $dados['categoria'] = $categoriaSelecionada;
         $dados['produtos'] = $respostaProdutos['produtos'] ?? [];
+        $dados['cliente'] = $respostaCliente['cliente']; // ✅ Essencial para carregar a foto na view
 
         $this->carregarViews('menu', $dados);
     }

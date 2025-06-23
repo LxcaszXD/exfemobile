@@ -21,9 +21,14 @@ require_once('template/head.php');
 
                 <div class="foto-perfil">
                     <a href="<?php echo BASE_URL; ?>index.php?url=perfil">
-                        <img src="<?php echo BASE_URL; ?>assets/img/imagePerfil.png" alt="">
+                        <?php
+                        $imagemPadrao = BASE_URL_FOTO . 'sem-foto-cliente.png';
+                        $fotoCliente = !empty($cliente['foto_cliente']) ? BASE_URL_FOTO . $cliente['foto_cliente'] : $imagemPadrao;
+                        ?>
+                        <img src="<?php echo $fotoCliente; ?>" alt="Foto do cliente" style="width: 50px; height: 50px; border-radius: 50%;">
                     </a>
                 </div>
+
 
             </div>
 
@@ -68,7 +73,14 @@ require_once('template/head.php');
             <?php if (!empty($produtos)):
                 foreach ($produtos as $produto): ?>
                     <div class="card" data-tipo="<?php echo htmlspecialchars($produto['nome_categoria']); ?>">
-                        <img src="<?php echo BASE_URL_FOTO . 'assets/img/' . htmlspecialchars($produto['foto_produto']); ?>" alt="<?php echo htmlspecialchars($produto['nome_produto']); ?>">
+                        
+                        <?php
+                        $imagemPadraoProduto = BASE_URL_FOTO . 'sem-foto-produto.png'; // Ex: imagem padrão no servidor
+                        $fotoProduto = !empty($produto['foto_produto']) ? BASE_URL_FOTO . $produto['foto_produto'] : $imagemPadraoProduto;
+                        ?>
+
+                        <img src="<?php echo $fotoProduto; ?>" alt="<?php echo htmlspecialchars($produto['nome_produto']); ?>" style="width: 100px; height: auto; object-fit: cover;">
+                        
                         <h3><?php echo htmlspecialchars($produto['nome_produto']); ?></h3>
                         <p><?php echo htmlspecialchars($produto['nome_categoria']); ?></p>
                         <div class="card-footer">
@@ -84,11 +96,12 @@ require_once('template/head.php');
             <?php endif; ?>
         </div>
 
+
         <nav class="footer-section">
             <a href="" class="active"><i class='bx bxs-home-alt-2 '></i></a>
-            <a href="<?php echo BASE_URL; ?>index.php?url=avaliacao"><i class='bx bx-star'></i></a>
+            <a href="<?php echo BASE_URL; ?>index.php?url=avaliacao"><i class='bx bx-heart'></i></a>
             <a href="<?php echo BASE_URL; ?>index.php?url=pedidos"><i class='bx bx-shopping-bag'></i></a>
-            <a href="<?php echo BASE_URL; ?>index.php?url=reserva"><i class='bx bx-book'></i></a>
+            <a href=""><i class='bx bx-bell'></i></a>
         </nav>
 
     </section>

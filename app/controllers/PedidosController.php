@@ -92,7 +92,7 @@ class PedidosController extends Controller
 
         $pedidos = $respostaPedidos['pedidos']; // <<< ESSA LINHA FALTAVA
 
-       require_once __DIR__ . '/../views/pedidos.php';
+        require_once __DIR__ . '/../views/pedidos.php';
 
 
 
