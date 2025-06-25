@@ -51,7 +51,7 @@ require_once('template/head.php');
 
                     <div class="mb-3">
                         <label class="form-label label-custom">Intensidade:</label>
-                        <input type="text" class="form-control input-custom" id="id_intensidade" name="id_intensidade" value="<?= !empty($cliente['nome_intensidade']) ? $cliente['nome_intensidade'] : 'Vazio' ?>" readonly>
+                        <input type="text" class="form-control input-custom" id="id_intensidade" name="id_intensidade" value="<?= !empty($cliente['nome_intensidade']) ? $cliente['nome_intensidade'] : 'Forte' ?>" readonly>
                     </div>
 
                     <div class="mb-3">
@@ -61,7 +61,7 @@ require_once('template/head.php');
 
                     <div class="mb-3">
                         <label class="form-label label-custom">Prefere Leite Vegetal?</label>
-                        <input type="text" class="form-control input-custom" id="prefere_leite_vegetal" name="prefere_leite_vegetal" value="<?= !empty($cliente['prefere_leite_vegetal']) ? $cliente['prefere_leite_vegetal'] : 'Vazio' ?>" readonly>
+                        <input type="text" class="form-control input-custom" id="prefere_leite_vegetal" name="prefere_leite_vegetal" value="<?= !empty($cliente['prefere_leite_vegetal']) ? $cliente['prefere_leite_vegetal'] : 'Não' ?>" readonly>
                     </div>
 
                     <div class="mb-3">

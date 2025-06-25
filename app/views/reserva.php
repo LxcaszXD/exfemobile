@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 
-<?php
-require_once('template/head.php');
-
-?>
+<?php require_once('template/head.php'); ?>
 
 <body>
-    <div id="reserva">
+    <div class="container py-4" id="reserva">
+
         <div class="header">
             <button class="back">
                 <a href="<?php echo BASE_URL; ?>index.php?url=menu">
@@ -20,54 +18,83 @@ require_once('template/head.php');
             </button>
         </div>
 
-        <div class="image-container">
-            <img src="<?php echo BASE_URL; ?>assets/img/Image.png" alt="Caffe Mocha">
-        </div>
+        <section class="mb-5">
+            <h4 class="mb-3">Suas Reservas</h4>
+            <div class="list-group">
+                <?php if (!empty($reservas)): ?>
+                    <?php foreach ($reservas as $reserva): ?>
+                        <div class="list-group-item d-flex justify-content-between align-items-start">
+                            <div>
+                                <p class="mb-1"><strong>Data:</strong> <?= date('d/m/Y', strtotime($reserva['data_reserva'])) ?></p>
+                                <p class="mb-1"><strong>Horário:</strong> <?= substr($reserva['hora_inicio'], 0, 5) ?> às <?= substr($reserva['hora_fim'], 0, 5) ?></p>
+                                <p class="mb-1"><strong>Status:</strong> <?= $reserva['status_reserva'] ?></p>
+                                <p class="mb-1"><strong>Mesa:</strong> <?= $reserva['numero_mesa'] ?></p>
+                                <p class="mb-1"><strong>Capacidade:</strong> <?= $reserva['capacidade'] ?></p>
+                                <p class="mb-0"><strong>Observações:</strong> <?= $reserva['observacoes'] ?></p>
+                            </div>
+                            <?php if ($reserva['status_reserva'] !== 'Cancelada'): ?>
+                                <form method="GET" action="<?= BASE_URL ?>index.php?url=reserva/cancelar" onsubmit="return confirm('Deseja cancelar esta reserva?')">
+                                    <input type="hidden" name="id" value="<?= $reserva['id_reserva'] ?>">
+                                    <button type="submit" class="btn btn-danger btn-sm ms-3" style="background-color: #371406;">X</button>
+                                </form>
+                            <?php endif; ?>
+                        </div>
+                    <?php endforeach; ?>
 
-        <div class="content">
-            <div class="title-row">
-                <h3>Caffe Mocha</h3>
-                <div class="icons">
-                    <div class="icon">&#9749;</div>
-                    <div class="icon">&#128230;</div>
-                </div>
+                <?php else: ?>
+                    <div class="alert alert-info">Nenhuma reserva encontrada.</div>
+                <?php endif; ?>
             </div>
+        </section>
 
-            <div class="rating">
-
-                <span class="rating-number">4.8</span>
-                <span class="reviews">(230)</span>
-            </div>
-
-            <h4>Description</h4>
-            <p class="description">
-                A cappuccino is an approximately 150 ml (5 oz) beverage,
-                with 25 ml of espresso coffee and 85ml of fresh milk the fo...
-                <span class="read-more">Read More</span>
-            </p>
-            
-            <section>
-                <h4>Reservado</h4>
-                <div class="reserva">
-                <h5>Reservado para as 15:00</h5>
+        <section>
+            <h4 class="mb-3">Nova Reserva</h4>
+            <form method="POST" action="<?php echo BASE_URL; ?>index.php?url=reserva/salvar" class="row g-3" onsubmit="return confirmarPagamento()">
+                <div class="col-md-6">
+                    <label for="data_reserva" class="form-label">Data</label>
+                    <input type="date" name="data_reserva" id="data_reserva" class="form-control" required>
                 </div>
-            </section>
-        </div>
-        
-        <nav class="footerSection">
-            <div class="footer">
-                <div class="price">
-                    <p>Deseja Cancelar?</p>
+
+                <div class="col-md-3">
+                    <label for="hora_inicio" class="form-label">Hora Início</label>
+                    <input type="time" name="hora_inicio" id="hora_inicio" class="form-control" required>
                 </div>
-                <a href="<?php echo BASE_URL; ?>index.php?url=reserva">
-                    <button class="reserve">Cancelar</button>
-                </a>
-            </div>
-        </nav>
+
+                <div class="col-md-3">
+                    <label for="hora_fim" class="form-label">Hora Fim</label>
+                    <input type="time" name="hora_fim" id="hora_fim" class="form-control" required>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="id_mesa" class="form-label">Escolha a Mesa</label>
+                    <select name="id_mesa" id="id_mesa" class="form-select" required>
+                        <option value="">Selecione</option>
+                        <?php foreach ($mesas as $mesa): ?>
+                            <option value="<?= $mesa['id_mesa'] ?>">Mesa <?= $mesa['numero_mesa'] ?> - Capacidade <?= $mesa['capacidade'] ?? '' ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+
+                <div class="col-md-12">
+                    <label for="observacoes" class="form-label">Observações</label>
+                    <textarea name="observacoes" id="observacoes" rows="3" class="form-control"></textarea>
+                </div>
+
+                <div class="col-md-12 d-grid">
+                    <button type="submit" class="btn btn-success" style="background-color: #371406;">Reservar</button>
+                </div>
+            </form>
+        </section>
     </div>
 
+    <script>
+        function confirmarPagamento() {
+            return confirm("Para confirmar a reserva é necessário realizar o pagamento da taxa de R$25,00.\nDeseja continuar?\n\nObservações: Em caso de cancelamento, a taxa não será reembolsada.\nO tempo máximo de tolerância é de 15 minutos após o horário da reserva.\nPara a reserva de horários diretens de: segunda a sábado, das 8h às 20h e domingos das 9h às 14h, é necessário entrar em contato com para a confirmação.\n\nAgradecemos a compreensão!");
+        }
+    </script>
+    <!-- Bootstrap JS (caso ainda não esteja incluído) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </body>
 
 </html>

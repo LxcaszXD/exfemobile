@@ -1457,4 +1457,54 @@ html body #avaliacao .footerSection .footer .reserve {
 }
 html body #avaliacao .footerSection .footer .reserve:hover {
   background-color: #6a4234;
+}
+html body body.page-recuperar {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  margin: 0 auto;
+  font-family: var(--fontNoCorpo);
+}
+html body .page-recuperar .container {
+  max-width: 400px;
+  background-color: #222;
+  border-radius: 15px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  margin: 0;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+html body .page-recuperar h1 {
+  color: var(--titulos-color);
+  font-family: var(--titulos);
+  font-size: 28px;
+  text-align: center;
+  margin-bottom: 30px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+html body .page-recuperar .input-group {
+  margin-bottom: 25px;
+}
+html body .page-recuperar .input-group label {
+  display: block;
+  color: var(--white-color);
+  font-size: 16px;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+html body .page-recuperar .input-group input {
+  width: 100%;
+  padding: 12px 15px;
+  background-color: #333;
+  border: 1px solid #555;
+  border-radius: 5px;
+  color: var(--white-color);
+  font-size: 16px;
+}
+html body .page-recuperar .btn {
+  margin-top: 10px;
 }/*# sourceMappingURL=style.css.map */
