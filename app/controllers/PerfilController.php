@@ -119,6 +119,8 @@ class PerfilController extends Controller
         return json_decode($response, true);
     }
 
+
+
     // Atualiza os dados do cliente via API
     public function editarPerfil()
     {
@@ -205,6 +207,80 @@ class PerfilController extends Controller
             $_SESSION['tipo-msg'] = 'sucesso';
         } else {
             $_SESSION['mensagem'] = $resposta['mensagem'] ?? 'Erro ao atualizar os dados.';
+            $_SESSION['tipo-msg'] = 'erro';
+        }
+
+        header("Location: " . BASE_URL . "index.php?url=perfil");
+        exit;
+    }
+
+    public function editarFotoCliente()
+    {
+        if (!isset($_SESSION['token'])) {
+            header("Location: " . BASE_URL . "index.php?url=login");
+            exit;
+        }
+
+        $dadosToken = TokenHelper::validar($_SESSION['token']);
+        if (!$dadosToken) {
+            session_destroy();
+            unset($_SESSION['token']);
+            header("Location: " . BASE_URL . "index.php?url=login");
+            exit;
+        }
+
+        $id = $dadosToken['id'] ?? null;
+        if (!$id) {
+            $_SESSION['mensagem'] = 'ID do cliente não encontrado.';
+            $_SESSION['tipo-msg'] = 'erro';
+            header("Location: " . BASE_URL . "index.php?url=perfil");
+            exit;
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            $_SESSION['mensagem'] = 'Método inválido.';
+            $_SESSION['tipo-msg'] = 'erro';
+            header("Location: " . BASE_URL . "index.php?url=perfil");
+            exit;
+        }
+
+        if (!isset($_FILES['foto_cliente']) || $_FILES['foto_cliente']['error'] !== 0) {
+            $_SESSION['mensagem'] = 'Erro ao enviar a imagem.';
+            $_SESSION['tipo-msg'] = 'erro';
+            header("Location: " . BASE_URL . "index.php?url=perfil");
+            exit;
+        }
+
+        $arquivo = new CURLFile(
+            $_FILES['foto_cliente']['tmp_name'],
+            $_FILES['foto_cliente']['type'],
+            $_FILES['foto_cliente']['name']
+        );
+
+        $dados = [
+            'id_cliente'    => $id,
+            'foto_cliente'  => $arquivo
+        ];
+
+        $ch = curl_init(BASE_API . "atualizarCliente/$id");
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $dados);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'Authorization: Bearer ' . $_SESSION['token']
+        ]);
+
+        $resposta = curl_exec($ch);
+        $status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+
+        $resposta = json_decode($resposta, true);
+
+        if ($status === 200 && isset($resposta['status']) && $resposta['status'] === 'sucesso') {
+            $_SESSION['mensagem'] = 'Foto atualizada com sucesso!';
+            $_SESSION['tipo-msg'] = 'sucesso';
+        } else {
+            $_SESSION['mensagem'] = $resposta['mensagem'] ?? 'Erro ao atualizar a foto.';
             $_SESSION['tipo-msg'] = 'erro';
         }
 

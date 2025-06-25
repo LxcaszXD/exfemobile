@@ -27,7 +27,10 @@ class PedidosController extends Controller
         }
 
         // ---------- REQUISIÇÃO PARA listarClientes ----------
-        $urlCliente = BASE_API . "listarClientes?id=" . $id;
+
+
+        
+        $urlCliente = BASE_API . "listarCliente/{$id}";
 
         $chCliente = curl_init($urlCliente);
         curl_setopt($chCliente, CURLOPT_RETURNTRANSFER, true);
@@ -35,22 +38,42 @@ class PedidosController extends Controller
             'Authorization: Bearer ' . $_SESSION['token']
         ]);
         $responseCliente = curl_exec($chCliente);
-        $statusCodeCliente = curl_getinfo($chCliente, CURLINFO_HTTP_CODE);
+        $statusCode = curl_getinfo($chCliente, CURLINFO_HTTP_CODE);
         curl_close($chCliente);
 
-        if ($statusCodeCliente != 200) {
-            echo "Erro ao buscar o cliente na API. Código HTTP: $statusCodeCliente";
+        if ($statusCode != 200) {
+            echo "Erro ao buscar cliente na API. Código HTTP: $statusCode";
             exit;
         }
 
         $respostaCliente = json_decode($responseCliente, true);
 
         if ($respostaCliente['status'] !== 'sucesso') {
-            echo "Erro na resposta da API: " . ($respostaCliente['mensagem'] ?? 'Resposta inválida');
+            echo "Erro na resposta da API: " . ($respostaCliente['mensagem'] ?? 'Cliente não encontrado.');
             exit;
         }
 
+        $cliente = $respostaCliente['cliente'];
+
+
+
         // ---------- REQUISIÇÃO PARA listarPedidos ----------
+        // Monta a URL da API de pedidos
+
+
+        // Garante que a sessão está iniciada
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        // Verifica se o ID do cliente está na sessão
+        $id = isset($_SESSION['id_cliente']) ? $_SESSION['id_cliente'] : null;
+
+        if (!$id) {
+            echo "ID do cliente não encontrado na sessão.";
+            exit;
+        }
+
         // Monta a URL da API de pedidos
         $urlPedidos = BASE_API . "listarPedidos/?id=" . $id;
 
@@ -60,13 +83,21 @@ class PedidosController extends Controller
         // Define que a resposta será retornada como string
         curl_setopt($chPedidos, CURLOPT_RETURNTRANSFER, true);
 
-        // Define os headers, incluindo o token de autenticação
-        curl_setopt($chPedidos, CURLOPT_HTTPHEADER, [
-            'Authorization: Bearer ' . $_SESSION['token']
-        ]);
+        // Define os headers, incluindo o token de autenticação, se existir
+        $headers = [];
+        if (isset($_SESSION['token'])) {
+            $headers[] = 'Authorization: Bearer ' . $_SESSION['token'];
+        }
+        curl_setopt($chPedidos, CURLOPT_HTTPHEADER, $headers);
 
         // Executa a requisição
         $responsePedidos = curl_exec($chPedidos);
+
+        // Verifica erro na execução
+        if ($responsePedidos === false) {
+            echo "Erro no cURL: " . curl_error($chPedidos);
+            exit;
+        }
 
         // Obtém o código HTTP da resposta
         $statusCodePedidos = curl_getinfo($chPedidos, CURLINFO_HTTP_CODE);
@@ -81,18 +112,21 @@ class PedidosController extends Controller
             exit;
         }
 
-        // Decodifica o JSON da resposta em array associativo
+        // Decodifica o JSON da resposta
         $respostaPedidos = json_decode($responsePedidos, true);
 
-        // Verifica se veio um array válido e com os dados esperados
-        if (!isset($respostaPedidos['pedidos']) || empty($respostaPedidos['pedidos'])) {
-            echo "Nenhum pedido encontrado para este cliente.";
+        // Verifica se a resposta é válida e com status sucesso
+        if (!$respostaPedidos || !isset($respostaPedidos['status']) || $respostaPedidos['status'] !== 'sucesso') {
+            echo "Erro na resposta da API: " . ($respostaPedidos['mensagem'] ?? 'Resposta inválida');
             exit;
         }
 
-        $pedidos = $respostaPedidos['pedidos']; // <<< ESSA LINHA FALTAVA
+        // Armazena os pedidos para a view
+        $pedidos = $respostaPedidos['pedidos'];
 
+        // Carrega a view de pedidos
         require_once __DIR__ . '/../views/pedidos.php';
+
 
 
 

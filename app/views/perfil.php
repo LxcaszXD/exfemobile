@@ -20,8 +20,14 @@ require_once('template/head.php');
 
         <!-- Foto de Perfil -->
         <section class="perfilFoto">
-            <img src="<?php echo BASE_URL; ?>assets/img/imagePerfil.png" alt="Foto de Perfil" class="rounded-4 perfil-img">
+            <?php
+            // Define caminho padrão e imagem personalizada (se houver)
+            $imagemPadrao = BASE_URL_FOTO . 'sem-foto-cliente.png';
+            $fotoCliente = !empty($cliente['foto_cliente']) ? BASE_URL_FOTO . $cliente['foto_cliente'] : $imagemPadrao;
+            ?>
+            <img src="<?php echo $fotoCliente; ?>" alt="Foto de Perfil" class="rounded-4 perfil-img" style="width: 120px; height: 120px; object-fit: cover;">
         </section>
+
 
         <!-- Formulário -->
         <section class="perfilInput">
