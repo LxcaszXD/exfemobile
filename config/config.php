@@ -5,7 +5,7 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 
 // Definir uma url base
-define('BASE_URL','http://localhost/exfemobile/public/');
+define('BASE_URL','http://agenciatipi02.smpsistema.com.br/devcycle/exfemobile/public/');
 
 define('BASE_URL_FOTO', 'https://agenciatipi02.smpsistema.com.br/devcycle/exfe/public/uploads/');
 

@@ -6,6 +6,7 @@ self.addEventListener('install', function(event) {
                 'index.php',
                 '../app/view/template/head.php',
                 '../app/view/login.php',
+                '../app/view/instalacao.php',
                 'assets/css/style.css',
                 'assets/img/logo_exfe_dark.png',
                 'assets/img/logo_exfe_dark.png',
