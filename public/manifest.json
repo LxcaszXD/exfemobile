@@ -2,7 +2,7 @@
     "name": "Aplicativo Exfé",
     "short_name": "Exfé",
     "description": "Aplicativo da Exfé",
-    "start_url": "https://agenciatipi02.smpsistema.com.br/devcycle/exfemobile/app/views/instalacao.php",
+    "start_url": "../app/views/instalacao.php",
     "display": "standalone",
     "theme_color": "#371406",
     "background_color": "#371406",
