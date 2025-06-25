@@ -75,37 +75,37 @@
                         </select>
                     </div>
 
-                    <div class="mb-3">
-                        <label class="form-label label-custom">Intensidade:</label>
-                        <select name="id_intensidade" class="form-control input-custom" required>
-                            <?php if (!empty($intensidades) && is_array($intensidades)): ?>
-                                <?php foreach ($intensidades as $intensidade): ?>
-                                    <option value="<?= htmlspecialchars($intensidade['id_intensidade']) ?>"
-                                        <?= (isset($cliente['id_intensidade']) && $cliente['id_intensidade'] == $intensidade['id_intensidade']) ? 'selected' : '' ?>>
-                                        <?= htmlspecialchars($intensidade['nivel_intensidade']) ?>
-                                    </option>
-                                <?php endforeach; ?>
-                            <?php else: ?>
-                                <option disabled>Sem intensidades disponíveis</option>
-                            <?php endif; ?>
-                        </select>
-                    </div>
+                <div class="mb-3">
+                    <label class="form-label label-custom">Intensidade:</label>
+                    <select name="id_intensidade" class="form-control input-custom" required>
+                        <?php if (!empty($intensidades) && is_array($intensidades)): ?>
+                            <?php foreach ($intensidades as $intensidade): ?>
+                                <option value="<?= htmlspecialchars($intensidade['id_intensidade']) ?>" 
+                                    <?= (isset($cliente['id_intensidade']) && $cliente['id_intensidade'] == $intensidade['id_intensidade']) ? 'selected' : '' ?>>
+                                    <?= htmlspecialchars($intensidade['nivel_intensidade']) ?>
+                                </option>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <option disabled>Sem intensidades disponíveis</option>
+                        <?php endif; ?>
+                    </select>
+                </div>
 
-                    <div class="mb-3">
-                        <label class="form-label label-custom">Acompanhamento:</label>
-                        <select name="id_acompanhamento" class="form-control input-custom" required>
-                            <?php if (!empty($acompanhamentos) && is_array($acompanhamentos)): ?>
-                                <?php foreach ($acompanhamentos as $acomp): ?>
-                                    <option value="<?= htmlspecialchars($acomp['id_acompanhamento']) ?>"
-                                        <?= (isset($cliente['id_acompanhamento']) && $cliente['id_acompanhamento'] == $acomp['id_acompanhamento']) ? 'selected' : '' ?>>
-                                        <?= htmlspecialchars($acomp['nome_acompanhamento']) ?>
-                                    </option>
-                                <?php endforeach; ?>
-                            <?php else: ?>
-                                <option disabled>Sem acompanhamentos disponíveis</option>
-                            <?php endif; ?>
-                        </select>
-                    </div>
+                <div class="mb-3">
+                    <label class="form-label label-custom">Acompanhamento:</label>
+                    <select name="id_acompanhamento" class="form-control input-custom" required>
+                        <?php if (!empty($acompanhamentos) && is_array($acompanhamentos)): ?>
+                            <?php foreach ($acompanhamentos as $acomp): ?>
+                                <option value="<?= htmlspecialchars($acomp['id_acompanhamento']) ?>" 
+                                    <?= (isset($cliente['id_acompanhamento']) && $cliente['id_acompanhamento'] == $acomp['id_acompanhamento']) ? 'selected' : '' ?>>
+                                    <?= htmlspecialchars($acomp['nome_acompanhamento']) ?>
+                                </option>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <option disabled>Sem acompanhamentos disponíveis</option>
+                        <?php endif; ?>
+                    </select>
+                </div>
 
                     <div class="mb-3">
                         <label class="form-label label-custom">Prefere Leite Vegetal?</label>

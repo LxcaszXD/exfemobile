@@ -34,13 +34,22 @@
 
             <?php if (!empty($avaliacoes)): ?>
                 <?php foreach ($avaliacoes as $avaliacao): ?>
-                    <div class="avaliacao mb-4 border p-3 rounded">
-                        <h4><?= htmlspecialchars($avaliacao['nome_produto']) ?></h4>
-                        <img src="<?= BASE_URL_FOTO . 'img/' . htmlspecialchars($avaliacao['foto_produto']) ?>" alt="<?= htmlspecialchars($avaliacao['nome_produto']) ?>" class="img-fluid mb-2" style="max-width: 150px;">
-                        <p><strong><?= htmlspecialchars($avaliacao['nome_cliente']) ?></strong> - <?= date('d/m/Y', strtotime($avaliacao['data_avaliacao'])) ?></p>
-                        <p>Nota: <?= (int)$avaliacao['nota'] ?> ★</p>
-                        <p><?= nl2br(htmlspecialchars($avaliacao['comentario'])) ?></p>
+                    <div class="avaliacao mb-4 border p-3 rounded d-flex justify-content-between align-items-start">
+                        <div>
+                            <h4><?= htmlspecialchars($avaliacao['nome_produto']) ?></h4>
+                            <p><strong><?= htmlspecialchars($avaliacao['nome_cliente']) ?></strong> - <?= date('d/m/Y', strtotime($avaliacao['data_avaliacao'])) ?></p>
+                            <p>Nota: <?= (int)$avaliacao['nota'] ?> ★</p>
+                            <p><?= nl2br(htmlspecialchars($avaliacao['comentario'])) ?></p>
+                        </div>
+
+                        <?php if ($avaliacao['id_cliente'] == $id_cliente_logado): ?>
+                            <a href="<?= BASE_URL ?>index.php?url=avaliacao/cancelar&id=<?= $avaliacao['id_avaliacao'] ?>"
+                                onclick="return confirm('Deseja remover esta avaliação?')"
+                                class="btn btn-sm btn-danger ms-3" style="height: 30px; background-color: #371406;">X</a>
+                        <?php endif; ?>
+
                     </div>
+
                 <?php endforeach; ?>
             <?php else: ?>
                 <p style="color: #888;">Nenhuma avaliação encontrada.</p>

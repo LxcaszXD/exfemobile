@@ -165,7 +165,7 @@ html {
   body {
     width: 100%;
     max-width: 500px;
-    height: auto;
+    height: 100dvh;
     margin: 0 auto;
     display: flex;
     justify-content: center;
@@ -1730,5 +1730,52 @@ html {
       }
     }
 
+      .container {
+        max-width: 400px;
+        background-color: #222;
+        border-radius: 15px;
+        padding: 30px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        margin: 0;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      
+
+      h1 {
+        color: $titulosColor;
+        font-family: $titulosFont;
+        font-size: 28px;
+        text-align: center;
+        margin-bottom: 30px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+      }
+
+      .input-group {
+        margin-bottom: 25px;
+
+        label {
+          display: block;
+          color: $whiteColor;
+          font-size: 16px;
+          margin-bottom: 10px;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+        }
+
+        input {
+          width: 100%;
+          padding: 12px 15px;
+          background-color: #333;
+          border: 1px solid #555;
+          border-radius: 5px;
+          color: $whiteColor;
+          font-size: 16px;
+        }
+      }
+
+      .btn {
+        margin-top: 10px;
+      }
+    }
+    }
   }
-}
