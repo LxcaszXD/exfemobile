@@ -26,9 +26,13 @@ require_once('template/head.php');
                 </button>
             </div>
 
-            <div class="image-container">
-                <img src="<?php echo BASE_URL_FOTO . 'img/' . htmlspecialchars($produto['foto_produto']); ?>" alt="<?php echo htmlspecialchars($produto['nome_produto']); ?>">
-            </div>
+<div class="image-container" style="max-width: 250px; margin-left: 0; border-radius: 15px; margin:0 auto;">
+    <?php
+    $imagemPadraoProduto = BASE_URL_FOTO . 'sem-foto-produto.png'; // imagem padrão
+    $fotoProduto = !empty($produto['foto_produto']) ? BASE_URL_FOTO . $produto['foto_produto'] : $imagemPadraoProduto;
+    ?>
+    <img src="<?php echo $fotoProduto; ?>" alt="<?php echo htmlspecialchars($produto['nome_produto']); ?>" style="width: 100%; height: auto; object-fit: cover;">
+</div>
 
             <div class="content">
                 <div class="title-row">
@@ -61,7 +65,7 @@ require_once('template/head.php');
                         <span class="amount">R$ <?php echo number_format($produto['preco_produto'], 2, ',', '.'); ?></span>
                     </div>
                     <a href="<?php echo BASE_URL; ?>index.php?url=pedidos">
-                        <button class="reserve">Reservar</button>
+                        <button class="reserve">Adicionar</button>
                     </a>
                 </div>
             </nav>
