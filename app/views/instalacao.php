@@ -161,7 +161,7 @@
             console.log('Instalação: ' + outcome);
 
             if (outcome === 'accepted') {
-                window.location.href = 'http://localhost/exfemobile/public/';
+                window.location.href = 'https://agenciatipi02.smpsistema.com.br/devcycle/exfemobile/public/';
             }
 
             deferredPrompt = null;

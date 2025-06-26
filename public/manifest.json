@@ -13,13 +13,13 @@
     },
     "icons":[
         {
-            "src": "assets/img/logo_exfe_dark.png",
+            "src": "assets/img/logo_exfe.png",
             "sizes": "192x192",
             "type": "image/png",
             "purpose": "any"
         },
         {
-            "src": "assets/img/logo_exfe_dark.png",
+            "src": "assets/img/logo_exfe.png",
             "sizes": "512x512",
             "type": "image/png",
             "purpose": "maskable"
